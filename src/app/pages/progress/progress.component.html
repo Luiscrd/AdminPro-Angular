@@ -1,1 +1,28 @@
-<p>progress works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Striped Progress bar</h4>
+        <app-progrsbar [color]="'bg-info'" [progreso]="progreso1"></app-progrsbar>
+        <app-progrsbar [progreso]="progreso2"></app-progrsbar>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-increment [color]="'btn-info'" (valorSalida)="progreso1 = $event" [progreso]="progreso1"></app-increment>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-increment [progreso]="progreso2" (valorSalida)="progreso2 = $event"></app-increment>
+      </div>
+    </div>
+  </div>
+</div>

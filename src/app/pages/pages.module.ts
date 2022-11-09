@@ -7,6 +7,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BreadcrumbsComponent } from '../shared/breadcrumbs/breadcrumbs.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { CardComponent } from './card/card.component';
+import { FormsModule } from '@angular/forms';
+import { NgChartsModule } from 'ng2-charts';
+import { IncrementComponent } from '../components/increment/increment.component';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -16,12 +21,16 @@ import { RouterModule } from '@angular/router';
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    CardComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ComponentsModule,
+    NgChartsModule
   ],
   exports: [
     DashboardComponent,

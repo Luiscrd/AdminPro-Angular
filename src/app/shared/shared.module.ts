@@ -4,13 +4,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { RigtsidebarComponent } from './rigtsidebar/rigtsidebar.component';
 
-
-
 @NgModule({
   declarations: [
     SidebarComponent,
     HeaderComponent,
-    RigtsidebarComponent
+    RigtsidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -18,7 +16,7 @@ import { RigtsidebarComponent } from './rigtsidebar/rigtsidebar.component';
   exports: [
     SidebarComponent,
     HeaderComponent,
-    RigtsidebarComponent
+    RigtsidebarComponent,
   ]
 })
 export class SharedModule { }

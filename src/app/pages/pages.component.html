@@ -4,16 +4,8 @@
   <div class="page-wrapper">
     <div class="container-fluid">
       <app-breadcrumbs></app-breadcrumbs>
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <router-outlet></router-outlet>
-            </div>
-          </div>
-        </div>
-        <app-rigtsidebar></app-rigtsidebar>
-      </div>
+      <router-outlet></router-outlet>
+      <app-rigtsidebar></app-rigtsidebar>
     </div>
     <footer class="footer">© {{ year }} Admin Pro by wrappixel.com</footer>
   </div>
