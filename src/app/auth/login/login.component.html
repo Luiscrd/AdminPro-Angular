@@ -27,7 +27,7 @@
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Log In</button>
+            <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" (click)="login()">Log In</button>
           </div>
         </div>
         <div class="row">
@@ -40,11 +40,11 @@
         </div>
         <div class="form-group m-b-0">
           <div class="col-sm-12 text-center">
-            Don't have an account? <a href="pages-register2.html" class="text-primary m-l-5"><b>Sign Up</b></a>
+            Don't have an account? <a routerLink="/register" class="text-primary m-l-5"><b>Sign Up</b></a>
           </div>
         </div>
       </form>
-      <form class="form-horizontal" id="recoverform" action="index.html">
+      <form class="form-horizontal" id="recoverform">
         <div class="form-group ">
           <div class="col-xs-12">
             <h3>Recover Password</h3>
@@ -59,7 +59,7 @@
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
             <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light"
-              type="submit">Reset</button>
+              >Reset</button>
           </div>
         </div>
       </form>
