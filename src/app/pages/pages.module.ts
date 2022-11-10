@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
 import { IncrementComponent } from '../components/increment/increment.component';
 import { ComponentsModule } from '../components/components.module';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -23,6 +24,7 @@ import { ComponentsModule } from '../components/components.module';
     PagesComponent,
     BreadcrumbsComponent,
     CardComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { ComponentsModule } from '../components/components.module';
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    AccountSettingsComponent,
   ]
 })
 export class PagesModule { }
