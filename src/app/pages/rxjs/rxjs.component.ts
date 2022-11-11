@@ -14,7 +14,7 @@ export class RxjsComponent implements OnDestroy {
 
 
   constructor() {
-    
+
 
     // this.retornaObservable().pipe(
     //   retry(2)
@@ -26,7 +26,7 @@ export class RxjsComponent implements OnDestroy {
     this.intervalSubs = this.retornaIntervalo().subscribe( console.log )
 
   }
-  
+
   ngOnDestroy(): void {
     this.intervalSubs.unsubscribe();
   }
@@ -37,18 +37,18 @@ export class RxjsComponent implements OnDestroy {
             .pipe(
               // take(10),
               map( valor => valor + 1), // 0 => 1
-              filter( valor => ( valor % 2 === 0 ) ? true : false ),
+              filter( valor => valor % 2 === 0 ),
             );
   }
 
 
   retornaObservable(): Observable<number> {
     let i = -1;
-    
+
     return new Observable<number>( observer => {
-      
+
       const intervalo = setInterval( () => {
-        
+
         i++;
         observer.next(i);
 
