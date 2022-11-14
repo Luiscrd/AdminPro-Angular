@@ -94,7 +94,7 @@ export class LoginComponent implements AfterViewInit {
       },
       complete: () => {
 
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard/main');
 
       }
 
@@ -132,7 +132,7 @@ export class LoginComponent implements AfterViewInit {
           localStorage.removeItem('email');
         }
 
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard/main');
 
       }
 

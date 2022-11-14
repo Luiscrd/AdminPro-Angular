@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable, of, tap } from 'rxjs';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
 
@@ -15,9 +16,19 @@ export class UsersService {
 
   constructor(
 
-    private http: HttpClient
+    private http: HttpClient,
+
+    private router: Router
 
   ) { }
+
+  logout() {
+
+    localStorage.removeItem('adminProJWT');
+
+    this.router.navigateByUrl('/login');
+
+  }
 
   validateToken(): Observable<boolean> {
 
