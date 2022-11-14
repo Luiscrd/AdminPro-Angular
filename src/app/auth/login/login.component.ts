@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
@@ -33,7 +33,9 @@ export class LoginComponent implements AfterViewInit {
 
     private userService: UsersService,
 
-    private router: Router
+    private router: Router,
+
+    private ngZone: NgZone
 
   ) {
 
@@ -81,7 +83,7 @@ export class LoginComponent implements AfterViewInit {
       next: (resp) => {
         localStorage.setItem('adminProJWT', resp['jwt']);
         localStorage.removeItem('email');
-        // localStorage.setItem('email', resp['user'].email);
+        localStorage.setItem('email', resp['user'].email);
       },
       error: (error) => {
         console.warn(error.error.msg)
@@ -94,7 +96,11 @@ export class LoginComponent implements AfterViewInit {
       },
       complete: () => {
 
-        this.router.navigateByUrl('/dashboard/main');
+        this.ngZone.run(() => {
+
+          this.router.navigateByUrl('/dashboard/main');
+
+        })
 
       }
 
@@ -127,12 +133,20 @@ export class LoginComponent implements AfterViewInit {
 
           localStorage.setItem('email',this.loginForm.get('email').value);
 
+          localStorage.setItem('rec', 'true');
+
         } else {
 
           localStorage.removeItem('email');
+
+          localStorage.setItem('rec', 'false');
         }
 
-        this.router.navigateByUrl('/dashboard/main');
+        this.ngZone.run(() => {
+
+          this.router.navigateByUrl('/dashboard/main');
+
+        })
 
       }
 

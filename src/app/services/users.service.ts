@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from '../../environments/environment';
 import { Observable, of, tap } from 'rxjs';
@@ -8,6 +8,8 @@ import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 const base_url = environment.base_url;
+
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,9 @@ export class UsersService {
 
     private http: HttpClient,
 
-    private router: Router
+    private router: Router,
+
+    private ngZone: NgZone
 
   ) { }
 
@@ -26,7 +30,19 @@ export class UsersService {
 
     localStorage.removeItem('adminProJWT');
 
-    this.router.navigateByUrl('/login');
+    google.accounts.id.revoke(localStorage.getItem('email'), () => {
+
+      this.ngZone.run(() =>{
+
+        this.router.navigateByUrl('/login');
+
+      })
+
+
+
+      if(localStorage.getItem('rec') != 'true') localStorage.removeItem('email');
+
+    })
 
   }
 

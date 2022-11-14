@@ -15,7 +15,7 @@
             <input class="form-control" type="password" placeholder="Password" formControlName="password">
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-4">
           <div class="col text-danger">
             <p *ngIf="noValidimput('email')">{{ messageErrorEmail }}</p>
             <p *ngIf="noValidimput('password')">{{ messageErrorPassword }}</p>
