@@ -6,6 +6,7 @@ import { Observable, of, tap } from 'rxjs';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 const base_url = environment.base_url;
 
@@ -15,6 +16,8 @@ declare const google: any;
   providedIn: 'root'
 })
 export class UsersService {
+
+  public user: User;
 
   constructor(
 
@@ -57,6 +60,10 @@ export class UsersService {
     }).pipe(
       tap(resp => {
         localStorage.setItem('adminProJWT', resp['jwt']);
+        const { email, google, name, role, img, uid } = resp['user'];
+        // console.log({ email, google, name, role, img, uid });
+        this.user = new User(name, email, '', img, google, role, uid );
+        // console.log(this.user);
       }),
       map(resp => true),
       catchError(err => of(false))
