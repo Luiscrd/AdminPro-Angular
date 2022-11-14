@@ -12,6 +12,10 @@ export class SidebarComponent implements OnInit {
 
   menuItemes: Menu[];
 
+  public imgUrl = '';
+
+  public name = '';
+
   constructor(
 
     private sidebarService: SidebarService,
@@ -21,6 +25,10 @@ export class SidebarComponent implements OnInit {
   ) {
 
     this.menuItemes = sidebarService.menu;
+
+    this.imgUrl = userService.user.ImageUrl;
+
+    this.name = userService.user.name;
 
   }
 
