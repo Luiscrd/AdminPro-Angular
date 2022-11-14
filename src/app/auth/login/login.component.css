@@ -38,3 +38,12 @@
   position: absolute;
   height: 100%;
 }
+
+a{
+  cursor: pointer;
+}
+
+a:hover {
+  transition: 0.5s;
+  opacity: 0.5;
+}

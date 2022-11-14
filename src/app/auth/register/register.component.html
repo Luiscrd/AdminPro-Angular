@@ -18,7 +18,7 @@
         </div>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="password" placeholder="Password" formControlName="password1">
+            <input class="form-control" type="password" placeholder="Password" formControlName="password">
           </div>
         </div>
         <div class="form-group">
@@ -32,6 +32,16 @@
               <input id="checkbox-signup" type="checkbox" formControlName="term">
               <label for="checkbox-signup"> Acepto todos los <a href="#">Terminos</a></label>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-danger">
+            <p *ngIf="noValidimput('name')">{{ messageErrorName }}</p>
+            <p *ngIf="noValidimput('email')">{{ messageErrorEmail }}</p>
+            <p *ngIf="noValidimput('password')">{{ messageErrorPassword }}</p>
+            <p *ngIf="noValidimput('password2')">{{ messageErrorPassword2 }}</p>
+            <p *ngIf="noValidimput('term')">{{ messageErrorTermn }}</p>
+
           </div>
         </div>
         <div class="form-group text-center m-t-20">

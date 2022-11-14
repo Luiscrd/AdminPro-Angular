@@ -33,3 +33,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Descomprimr assets
 
 Descomprimir el archivo `assets.rar` antes de levantar la aplicación.
+
+## Cambiar el base_url de los enviroments
+
+Cambiar la referencia de la variable `base_url` del archivo `environment.pro.ts` por la de el backend donde esté desplegado.
