@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Mi perfil de usuario</h4>
+        <h6 class="card-subtitle">Editar mi perfil</h6>
+        <form class="form p-t-20" [formGroup]="profileForm" (ngSubmit)="save()">
+          <div class="form-group">
+            <label for="exampleInputuname">Nombre</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
+              <input type="text" class="form-control" formControlName="name" placeholder="Username">
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+              <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label>País</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-flag"></i></div>
+              <input type="text" class="form-control" formControlName="country" placeholder="Enter pais">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+              <input type="text" class="form-control" formControlName="phone" placeholder="Enter teléfono">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Edad</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+              <input type="text" class="form-control" formControlName="age" placeholder="Enter edad">
+            </div>
+          </div>
+          <!-- <div class="form-group">
+            <label for="pwd1">Password</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+              <input type="password" class="form-control" formControlName="password" placeholder="Enter new passsword">
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea class="form-control" formControlName="desc" rows="10"></textarea>
+          </div>
+          <button type="submit" class="btn btn-info btn-block waves-effect waves-light m-t-10"><i
+              class="fa fa-save"></i>Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <img [src]="userImg" class="img-edit-profile" alt="Avatar">
+        <div class="mt-4">
+          <label for="formFile" class="form-label">Cargar imagn nueva</label>
+          <input class="form-control" type="file" id="formFile">
+        </div>
+        <button type="button" class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"><i
+            class="fa fa-image"></i>Guardar Imagen</button>
+        <br>
+        <hr>
+        <div class="form-group">
+          <label>Facebook</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-facebook"></i></div>
+            <input type="text" class="form-control" placeholder="Enter facebook">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Twetter</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-twitter"></i></div>
+            <input type="text" class="form-control" placeholder="Enter twtter">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Instagram</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-instagram"></i></div>
+            <input type="text" class="form-control" placeholder="Enter instagram">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

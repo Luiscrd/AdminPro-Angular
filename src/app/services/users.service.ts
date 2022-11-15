@@ -7,6 +7,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { UpdateForm } from '../interfaces/update-form.interface';
 
 const base_url = environment.base_url;
 
@@ -29,13 +30,19 @@ export class UsersService {
 
   ) { }
 
+  get token() {
+
+    return localStorage.getItem('adminProJWT') || '';
+
+  }
+
   logout() {
 
     localStorage.removeItem('adminProJWT');
 
     google.accounts.id.revoke(localStorage.getItem('email'), () => {
 
-      this.ngZone.run(() =>{
+      this.ngZone.run(() => {
 
         this.router.navigateByUrl('/login');
 
@@ -43,7 +50,7 @@ export class UsersService {
 
 
 
-      if(localStorage.getItem('rec') != 'true') localStorage.removeItem('email');
+      if (localStorage.getItem('rec') != 'true') localStorage.removeItem('email');
 
     })
 
@@ -51,39 +58,58 @@ export class UsersService {
 
   validateToken(): Observable<boolean> {
 
-    const token = localStorage.getItem('adminProJWT') || '';
-
     return this.http.get(`${base_url}/login/renew`, {
       headers: {
-        'jwt': token
+        'jwt': this.token
       }
     }).pipe(
-      tap(resp => {
+      map(resp => {
         localStorage.setItem('adminProJWT', resp['jwt']);
-        const { email, google, name, role, img, uid } = resp['user'];
+        const {
+          email,
+          google,
+          name,
+          role,
+          img = '',
+          age = 35,
+          phone = '',
+          country = '',
+          desc = '',
+          uid
+        } = resp['user'];
         // console.log({ email, google, name, role, img, uid });
-        this.user = new User(name, email, '', img, google, role, uid );
+        this.user = new User(name, email, '', img, google, role, age, phone, country, desc, uid);
         // console.log(this.user);
+        return true;
       }),
-      map(resp => true),
       catchError(err => of(false))
     )
 
   }
 
-  createUser( formData: RegisterForm ) {
+  createUser(formData: RegisterForm) {
 
     return this.http.post(`${base_url}/users`, formData);
 
   }
 
-  loginUser( formData: LoginForm ) {
+  updateUser(formData: UpdateForm) {
+
+    return this.http.put(`${base_url}/users/${ this.user.uid }`, formData, {
+      headers: {
+      'jwt': this.token
+    }
+  });
+
+  }
+
+  loginUser(formData: LoginForm) {
 
     return this.http.post(`${base_url}/login`, formData);
 
   }
 
-  loginGoogle( jwt: string ) {
+  loginGoogle(jwt: string) {
 
     return this.http.post(environment.urlBackEnd, { jwt });
 

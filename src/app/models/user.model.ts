@@ -11,6 +11,10 @@ export class User {
     public img?: string,
     public google?: boolean,
     public role?: string,
+    public age?: Number,
+    public phone?: string,
+    public country?: string,
+    public desc?: string,
     public uid?: string,
 
   ) { }

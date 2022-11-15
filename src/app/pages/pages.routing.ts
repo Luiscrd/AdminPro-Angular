@@ -9,6 +9,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { PublicProfileComponent } from './public-profile/public-profile.component';
 
 const routes: Routes = [
     {
@@ -17,6 +19,8 @@ const routes: Routes = [
         canActivate: [ AuthGuard ],
         children: [
             { path: 'main', component: DashboardComponent, data: { titulo: 'Main'} },
+            { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Profile'} },
+            { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Edit Profile'} },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress'} },
             { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Graficas'} },
             { path: 'accountsettings', component: AccountSettingsComponent, data: { titulo: 'Setting'} },
