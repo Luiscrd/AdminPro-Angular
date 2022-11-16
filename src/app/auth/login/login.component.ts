@@ -81,9 +81,7 @@ export class LoginComponent implements AfterViewInit {
 
     this.userService.loginGoogle(response.credential).subscribe({
       next: (resp) => {
-        localStorage.setItem('adminProJWT', resp['jwt']);
-        localStorage.removeItem('email');
-        localStorage.setItem('email', resp['user'].email);
+        // console.log({loginComponent:resp});
       },
       error: (error) => {
         console.warn(error.error.msg)
@@ -116,7 +114,7 @@ export class LoginComponent implements AfterViewInit {
 
     this.userService.loginUser(this.loginForm.value).subscribe({
       next: (resp) => {
-        localStorage.setItem('adminProJWT', resp['jwt']);
+
       },
       error: (error) => {
         console.warn(error.error.msg)

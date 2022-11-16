@@ -63,10 +63,14 @@
         <img [src]="userImg" class="img-edit-profile" alt="Avatar">
         <div class="mt-4">
           <label for="formFile" class="form-label">Cargar imagn nueva</label>
-          <input class="form-control" type="file" id="formFile">
+          <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
         </div>
-        <button type="button" class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"><i
-            class="fa fa-image"></i>Guardar Imagen</button>
+        <button
+          type="button"
+          class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"
+          [disabled]="!imageUpload"
+          (click)="uploadImage()"
+          ><i class="fa fa-image"></i>Guardar Imagen</button>
         <br>
         <hr>
         <div class="form-group">

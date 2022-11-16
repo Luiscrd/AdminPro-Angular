@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user.model';
 import { UsersService } from 'src/app/services/users.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,8 @@ export class ProfileComponent implements OnInit {
 
   public profileForm: FormGroup;
 
+  public imageUpload: File;
+
   constructor(
 
     private userService: UsersService,
@@ -24,6 +27,8 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
 
     private router: Router,
+
+    private fileUploadService: FileUploadService
 
   ) {
 
@@ -48,14 +53,20 @@ export class ProfileComponent implements OnInit {
 
   save() {
 
-    this.userService.updateUser(this.profileForm.value).subscribe(resp => {
+    this.userService.updateUser(this.profileForm.value);
 
-      this.userService.user = resp['user'];
+  }
 
-      this.router.navigateByUrl('/dashboard/profile')
+  changeImage(file: File){
 
-    })
+    this.imageUpload = file;
 
+  }
+
+  uploadImage() {
+
+    this.fileUploadService.uploadImage(this.imageUpload, 'users', this.user.uid)
+    .then(img => console.log(img))
   }
 
 }

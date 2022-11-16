@@ -38,7 +38,9 @@ export class UsersService {
 
   logout() {
 
-    localStorage.removeItem('adminProJWT');
+    // localStorage.removeItem('adminProJWT');
+    console.log(localStorage.getItem('email'));
+
 
     google.accounts.id.revoke(localStorage.getItem('email'), () => {
 
@@ -95,23 +97,46 @@ export class UsersService {
 
   updateUser(formData: UpdateForm) {
 
+
+
+
     return this.http.put(`${base_url}/users/${ this.user.uid }`, formData, {
       headers: {
       'jwt': this.token
     }
+  }).subscribe(resp => {
+
+    console.log(resp['user']);
+
+    this.user = resp['user'];
+
+    this.router.navigateByUrl('/dashboard/profile')
+
   });
 
   }
 
   loginUser(formData: LoginForm) {
 
-    return this.http.post(`${base_url}/login`, formData);
+    return this.http.post(`${base_url}/login`, formData).pipe(
+      tap((resp: any) => {
+        localStorage.setItem('adminProJWT', resp['jwt']);
+      })
+    )
 
   }
 
   loginGoogle(jwt: string) {
 
-    return this.http.post(environment.urlBackEnd, { jwt });
+    return this.http.post(environment.urlBackEnd, { jwt }).pipe(
+      tap((resp: any) => {
+        localStorage.setItem('adminProJWT', resp['jwt']);
+        localStorage.removeItem('email');
+        localStorage.setItem('email', resp['user'].email);
+        // console.log({userService:resp});
+
+      })
+    )
 
   }
 }
