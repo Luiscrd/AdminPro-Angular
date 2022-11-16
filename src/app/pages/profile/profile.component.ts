@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
 
   public imageUpload: File;
 
+  public imgTemp: any = null;
+
   constructor(
 
     private userService: UsersService,
@@ -60,6 +62,18 @@ export class ProfileComponent implements OnInit {
   changeImage(file: File){
 
     this.imageUpload = file;
+
+    if(!file) return;
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+
+      this.imgTemp = reader.result;
+
+    }
 
   }
 
