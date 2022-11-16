@@ -14,7 +14,7 @@ declare const google: any;
 })
 export class LoginComponent implements AfterViewInit {
 
-  @ViewChild('googleBtn') googleBtn: ElementRef;
+  // @ViewChild('googleBtn') googleBtn: ElementRef;
 
   public loginForm: FormGroup;
 
@@ -55,56 +55,56 @@ export class LoginComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-   this.googleInit();
+  //  this.googleInit();
 
   }
 
-  googleInit() {
+  // googleInit() {
 
-    google.accounts.id.initialize({
-      client_id: environment.GOOGLE_ID,
-      callback: (response: any) => this.handleCredentialResponse(response)
-    });
+  //   google.accounts.id.initialize({
+  //     client_id: environment.GOOGLE_ID,
+  //     callback: (response: any) => this.handleCredentialResponse(response)
+  //   });
 
-    google.accounts.id.renderButton(
-      this.googleBtn.nativeElement,
-      { theme: "outline", size: "large" }  // customization attributes
-    );
+  //   google.accounts.id.renderButton(
+  //     this.googleBtn.nativeElement,
+  //     { theme: "outline", size: "large" }  // customization attributes
+  //   );
 
-    // google.accounts.id.prompt(); // also display the One Tap dialog
+  //   // google.accounts.id.prompt(); // also display the One Tap dialog
 
-  }
+  // }
 
-  handleCredentialResponse(response: any) {
+  // handleCredentialResponse(response: any) {
 
-    // console.log("Encoded JWT ID token: " + response.credential);
+  //   // console.log("Encoded JWT ID token: " + response.credential);
 
-    this.userService.loginGoogle(response.credential).subscribe({
-      next: (resp) => {
-        // console.log({loginComponent:resp});
-      },
-      error: (error) => {
-        console.warn(error.error.msg)
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          confirmButtonColor: '#398bf7',
-          text: error.error.msg,
-        })
-      },
-      complete: () => {
+  //   this.userService.loginGoogle(response.credential).subscribe({
+  //     next: (resp) => {
+  //       // console.log({loginComponent:resp});
+  //     },
+  //     error: (error) => {
+  //       console.warn(error.error.msg)
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Error',
+  //         confirmButtonColor: '#398bf7',
+  //         text: error.error.msg,
+  //       })
+  //     },
+  //     complete: () => {
 
-        this.ngZone.run(() => {
+  //       this.ngZone.run(() => {
 
-          this.router.navigateByUrl('/dashboard/main');
+  //         this.router.navigateByUrl('/dashboard/main');
 
-        })
+  //       })
 
-      }
+  //     }
 
-    })
+  //   })
 
-  }
+  // }
 
   login() {
 

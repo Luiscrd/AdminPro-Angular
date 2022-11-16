@@ -36,21 +36,19 @@ export class UsersService {
 
   }
 
+
   logout() {
 
-    // localStorage.removeItem('adminProJWT');
+    localStorage.removeItem('adminProJWT');
     console.log(localStorage.getItem('email'));
 
+    this.ngZone.run(() => {
+
+      this.router.navigateByUrl('/login');
+
+    })
 
     google.accounts.id.revoke(localStorage.getItem('email'), () => {
-
-      this.ngZone.run(() => {
-
-        this.router.navigateByUrl('/login');
-
-      })
-
-
 
       if (localStorage.getItem('rec') != 'true') localStorage.removeItem('email');
 
