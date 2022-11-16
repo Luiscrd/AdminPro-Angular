@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
 
-    private userService: UsersService,
+    public userService: UsersService,
 
   ) {
 

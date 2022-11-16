@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
 
     private sidebarService: SidebarService,
 
-    private userService: UsersService,
+    public userService: UsersService,
 
   ) {
 
@@ -38,6 +38,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   logout() {

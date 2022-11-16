@@ -60,7 +60,7 @@
   <div class="col-lg-6">
     <div class="card">
       <div class="card-body">
-        <img [src]="userImg" class="img-edit-profile" alt="Avatar">
+        <img [src]="user.ImageUrl" class="img-edit-profile" alt="Avatar">
         <div class="mt-4">
           <label for="formFile" class="form-label">Cargar imagn nueva</label>
           <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
