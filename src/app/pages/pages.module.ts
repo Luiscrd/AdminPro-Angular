@@ -17,6 +17,9 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
+import { HospitalsComponent } from './manteniment/hospitals/hospitals.component';
+import { MedicsComponent } from './manteniment/medics/medics.component';
+import { UsersComponent } from './manteniment/users/users.component';
 
 
 
@@ -33,6 +36,9 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
     RxjsComponent,
     ProfileComponent,
     PublicProfileComponent,
+    HospitalsComponent,
+    MedicsComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,9 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { PublicProfileComponent } from './public-profile/public-profile.component';
+import { MedicsComponent } from './manteniment/medics/medics.component';
+import { HospitalsComponent } from './manteniment/hospitals/hospitals.component';
+import { UsersComponent } from './manteniment/users/users.component';
 
 const routes: Routes = [
     {
@@ -19,13 +22,16 @@ const routes: Routes = [
         canActivate: [ AuthGuard ],
         children: [
             { path: 'main', component: DashboardComponent, data: { titulo: 'Main'} },
-            { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Profile'} },
-            { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Edit Profile'} },
+            { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Mi perfil'} },
+            { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Editar perfi'} },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress'} },
             { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Graficas'} },
             { path: 'accountsettings', component: AccountSettingsComponent, data: { titulo: 'Setting'} },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'} },
             { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs'} },
+            { path: 'medics', component: MedicsComponent, data: { titulo: 'Medicos'} },
+            { path: 'hospitals', component: HospitalsComponent, data: { titulo: 'Hospitales'} },
+            { path: 'users', component: UsersComponent, data: { titulo: 'Usuarios'} },
         ]
     },
 ];

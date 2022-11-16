@@ -104,8 +104,6 @@ export class UsersService {
     }
   }).subscribe(resp => {
 
-    console.log(resp['user']);
-
     this.user = resp['user'];
 
     this.router.navigateByUrl('/dashboard/profile')
