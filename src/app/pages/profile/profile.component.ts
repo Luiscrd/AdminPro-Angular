@@ -4,6 +4,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FileUploadService } from '../../services/file-upload.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -55,7 +56,11 @@ export class ProfileComponent implements OnInit {
 
   save() {
 
-    this.userService.updateUser(this.profileForm.value);
+    this.userService.updateUser(this.profileForm.value), (error) => {
+
+      Swal.fire('Error', error.error.msg, 'error');
+
+    }
 
   }
 
@@ -63,7 +68,7 @@ export class ProfileComponent implements OnInit {
 
     this.imageUpload = file;
 
-    if(!file) return;
+    if(!file) return this.imgTemp = null;
 
     const reader = new FileReader();
 
@@ -80,7 +85,18 @@ export class ProfileComponent implements OnInit {
   uploadImage() {
 
     this.fileUploadService.uploadImage(this.imageUpload, 'users', this.user.uid)
-    .then(img => this.user.img = img)
+    .then(img => {
+
+      this.user.img = img;
+
+      Swal.fire('Guardado', 'Imagen Actualizada', 'success');
+
+    }).catch(error => {
+
+      Swal.fire('Error', error.error.msg, 'error');
+
+    })
+
   }
 
 }
