@@ -4,7 +4,7 @@ import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from '../../environments/environment';
 import { Observable, of, tap } from 'rxjs';
 import { LoginForm } from '../interfaces/login-form.interface';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, delay, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { UpdateForm } from '../interfaces/update-form.interface';
@@ -36,6 +36,13 @@ export class UsersService {
 
   }
 
+  get headers() {
+    return {
+      headers: {
+        'jwt': this.token
+      }
+    }
+  }
 
   logout() {
 
@@ -58,11 +65,7 @@ export class UsersService {
 
   validateToken(): Observable<boolean> {
 
-    return this.http.get(`${base_url}/login/renew`, {
-      headers: {
-        'jwt': this.token
-      }
-    }).pipe(
+    return this.http.get(`${base_url}/login/renew`, this.headers).pipe(
       map(resp => {
         localStorage.setItem('adminProJWT', resp['jwt']);
         const {
@@ -98,11 +101,7 @@ export class UsersService {
 
 
 
-    return this.http.put(`${base_url}/users/${ this.user.uid }`, formData, {
-      headers: {
-      'jwt': this.token
-    }
-  }).subscribe(resp => {
+    return this.http.put(`${base_url}/users/${ this.user.uid }`, formData, this.headers).subscribe(resp => {
 
     this.user = resp['user'];
 
@@ -135,4 +134,23 @@ export class UsersService {
     )
 
   }
+
+  loafingUsers(to: number = 0) {
+
+    const url = `${base_url}/users?to=${to}`;
+
+    return this.http.get(url, this.headers).pipe(
+      map(resp => {
+        const users = resp['users']
+        .map(user => new User(user.name, user.email, '', user.img, user.google, user.role, user.uid) )
+
+        return {
+          users,
+          total: resp['total']
+        };
+      })
+    )
+
+  }
+
 }
