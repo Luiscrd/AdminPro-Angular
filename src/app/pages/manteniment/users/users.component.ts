@@ -27,6 +27,8 @@ export class UsersComponent implements OnInit {
 
   public searchActive: boolean = false;
 
+  public mailUser: string = this.userService.user.email;
+
   constructor(
 
     private userService: UsersService,
@@ -38,6 +40,9 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadUsers();
+
+    console.log(this.mailUser);
+
 
   }
 

@@ -49,10 +49,10 @@
                 </td>
                 <td class="text-nowrap text-center">
                   <a href="#" data-toggle="tooltip" data-original-title="Editar">
-                    <i class="fa fa-pencil text-inverse m-r-20"></i>
+                    <i class="fa fa-pencil text-inverse"></i>
                   </a>
-                  <a (click)="deleteUser(user)" data-toggle="tooltip" data-original-title="Borrar">
-                    <i class="fa fa-close text-danger"></i>
+                  <a (click)="deleteUser(user)" data-toggle="tooltip" data-original-title="Borrar" *ngIf="mailUser != user.email">
+                    <i class="fa fa-close text-danger m-l-20"></i>
                   </a>
                 </td>
               </tr>
