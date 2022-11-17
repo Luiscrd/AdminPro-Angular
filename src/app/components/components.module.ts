@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ProgrsbarComponent } from './progrsbar/progrsbar.component';
 import { DonaComponent } from './dona/dona.component';
 import { NgChartsModule } from 'ng2-charts';
+import { ModalUserComponent } from './modal-user/modal-user.component';
 
 
 
@@ -12,12 +13,14 @@ import { NgChartsModule } from 'ng2-charts';
   declarations: [
     IncrementComponent,
     ProgrsbarComponent,
-    DonaComponent
+    DonaComponent,
+    ModalUserComponent
   ],
   exports: [
     IncrementComponent,
     ProgrsbarComponent,
-    DonaComponent
+    DonaComponent,
+    ModalUserComponent
   ],
   imports: [
     CommonModule,

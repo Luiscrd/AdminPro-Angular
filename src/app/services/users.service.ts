@@ -99,8 +99,6 @@ export class UsersService {
   updateUser(formData: UpdateForm) {
 
 
-
-
     return this.http.put(`${base_url}/users/${this.user.uid}`, formData, this.headers).subscribe(resp => {
 
       this.user = resp['user'];
@@ -159,6 +157,18 @@ export class UsersService {
     const url = `${base_url}/users/${id}`;
 
     return this.http.delete(url, this.headers);
+
+  }
+
+  updateRole(user: User) {
+
+
+    return this.http.put(`${base_url}/users/${user.uid}`, user, this.headers).subscribe(resp => {
+
+      console.log(resp);
+
+
+    });
 
   }
 

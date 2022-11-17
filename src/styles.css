@@ -8,3 +8,7 @@
 a{
   cursor: pointer;
 }
+
+.oculto{
+  display: none;
+}

@@ -42,13 +42,24 @@
                 </td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.name }}</td>
-                <td class="text-center">{{ user.role }}</td>
+                <!-- <td class="text-center">{{ user.role }}</td> -->
+                <td class="text-center w140">
+                  <select
+                    [(ngModel)]="user.role"
+                    (change)="changeRole(user)"
+                    [disabled]="roleUser != 'ADMIN_ROLE' || mailUser === user.email"
+                    class="form-control text-center"
+                    aria-label="Default select example">
+                    <option value="ADMIN_ROLE">Admin</option>
+                    <option value="USER_ROLE">User</option>
+                  </select>
+                </td>
                 <td class="text-center">
                   <div *ngIf="user.google" class="label label-table label-danger">Google</div>
                   <div *ngIf="!user.google" class="label label-table label-info">Email</div>
                 </td>
                 <td class="text-nowrap text-center">
-                  <a href="#" data-toggle="tooltip" data-original-title="Editar">
+                  <a (click)="editUser(user)" data-toggle="tooltip" data-original-title="Editar">
                     <i class="fa fa-pencil text-inverse"></i>
                   </a>
                   <a (click)="deleteUser(user)" data-toggle="tooltip" data-original-title="Borrar" *ngIf="mailUser != user.email">
@@ -70,3 +81,73 @@
     </div>
   </div>
 </div>
+
+<div class="fondo-modal-user " [hidden]="!showModal" (click)="closeModal()">
+  <div *ngIf="userEdit" class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+    style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel1">Editar Usuario</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()"><span
+              aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <img [src]="userEdit.ImageUrl" class="img-edit-profile" alt="Avatar">
+            <div class="mt-4 mb-4">
+              <label for="formFile" class="form-label">Cargar imagn nueva</label>
+              <input class="form-control" type="file" id="formFile">
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                <input type="text" class="form-control" [value]="userEdit.name" placeholder="Username">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                <input [readOnly]="user.google" type="email" class="form-control" formControlName="email" placeholder="Enter email">
+              </div>
+            </div> -->
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-flag"></i></div>
+                <input type="text" class="form-control" [value]="userEdit.country" placeholder="Enter pais">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-phone"></i></div>
+                <input type="text" class="form-control" [value]="userEdit.phone" placeholder="Enter teléfono">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                <input type="text" class="form-control" [value]="userEdit.age" placeholder="Enter edad">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label for="pwd1">Password</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                <input type="password" class="form-control" formControlName="password" placeholder="Enter new passsword">
+              </div>
+            </div> -->
+            <div class="form-group">
+              <textarea class="form-control" [value]="userEdit.desc" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Cerrar</button>
+          <button type="button" class="btn btn-primary">Actualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

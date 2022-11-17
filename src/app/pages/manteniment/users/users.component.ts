@@ -29,6 +29,12 @@ export class UsersComponent implements OnInit {
 
   public mailUser: string = this.userService.user.email;
 
+  public roleUser: string = this.userService.user.role;
+
+  public showModal: boolean = false;
+
+  public userEdit: User;
+
   constructor(
 
     private userService: UsersService,
@@ -155,6 +161,25 @@ export class UsersComponent implements OnInit {
       }
     })
 
+  }
+
+  changeRole(user: User){
+
+    this.userService.updateRole(user);
+
+  }
+
+  editUser(user: User){
+
+    this.showModal = true;
+    this.userEdit = user;
+    console.log(this.userEdit);
+
+
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
 }
