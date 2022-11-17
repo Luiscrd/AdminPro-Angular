@@ -109,6 +109,14 @@ export class UsersService {
 
   }
 
+  editUser(formData: UpdateForm, id: string) {
+
+
+    return this.http.put(`${base_url}/users/${id}`, formData, this.headers);
+
+  }
+
+
   loginUser(formData: LoginForm) {
 
     return this.http.post(`${base_url}/login`, formData).pipe(
@@ -141,7 +149,6 @@ export class UsersService {
       map(resp => {
         const users = resp['users']
           .map(user => new User(user.name, user.email, '', user.img, user.google, user.role, 0, '', '', '', user.uid))
-        console.log(users);
 
         return {
           users,
@@ -165,7 +172,6 @@ export class UsersService {
 
     return this.http.put(`${base_url}/users/${user.uid}`, user, this.headers).subscribe(resp => {
 
-      console.log(resp);
 
 
     });

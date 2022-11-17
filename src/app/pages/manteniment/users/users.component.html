@@ -82,7 +82,7 @@
   </div>
 </div>
 
-<div class="fondo-modal-user " [hidden]="!showModal" (click)="closeModal()">
+<div class="fondo-modal-user animated fadeIn fast" [hidden]="!showModal" (dblclick)="closeModal()">
   <div *ngIf="userEdit" class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
     style="display: block;">
     <div class="modal-dialog" role="document">
@@ -93,16 +93,23 @@
               aria-hidden="true">×</span></button>
         </div>
         <div class="modal-body">
-          <form>
-            <img [src]="userEdit.ImageUrl" class="img-edit-profile" alt="Avatar">
-            <div class="mt-4 mb-4">
+          <form  [formGroup]="editForm">
+            <img *ngIf="!imgTemp" [src]="userEdit.ImageUrl" class="img-edit-profile" alt="Avatar">
+            <img *ngIf="imgTemp" [src]="imgTemp" class="img-edit-profile" alt="Avatar">
+            <div class="mt-4">
               <label for="formFile" class="form-label">Cargar imagn nueva</label>
-              <input class="form-control" type="file" id="formFile">
+              <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
             </div>
+            <button
+              type="button"
+              class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-4"
+              [disabled]="!imageUpload"
+              (click)="uploadImage()"
+              ><i class="fa fa-image"></i>Actualizar Imagen</button>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                <input type="text" class="form-control" [value]="userEdit.name" placeholder="Username">
+                <input type="text" class="form-control"  formControlName="name"  placeholder="Username">
               </div>
             </div>
             <!-- <div class="form-group">
@@ -115,19 +122,19 @@
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-flag"></i></div>
-                <input type="text" class="form-control" [value]="userEdit.country" placeholder="Enter pais">
+                <input type="text" class="form-control"  formControlName="country" placeholder="Enter pais">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                <input type="text" class="form-control" [value]="userEdit.phone" placeholder="Enter teléfono">
+                <input type="text" class="form-control"  formControlName="phone" placeholder="Enter teléfono">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                <input type="text" class="form-control" [value]="userEdit.age" placeholder="Enter edad">
+                <input type="text" class="form-control" formControlName="age" placeholder="Enter edad">
               </div>
             </div>
             <!-- <div class="form-group">
@@ -138,13 +145,13 @@
               </div>
             </div> -->
             <div class="form-group">
-              <textarea class="form-control" [value]="userEdit.desc" rows="3"></textarea>
+              <textarea class="form-control" formControlName="desc" rows="3"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Cerrar</button>
-          <button type="button" class="btn btn-primary">Actualizar</button>
+          <button type="button" class="btn btn-info" (click)="save()">Actualizar</button>
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/user.model';
 import { SearchsService } from '../../../services/searchs.service';
 import Swal from 'sweetalert2';
+import { FileUploadService } from 'src/app/services/file-upload.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -35,20 +37,27 @@ export class UsersComponent implements OnInit {
 
   public userEdit: User;
 
+  public imageUpload: File;
+
+  public imgTemp: any = null;
+
+  public editForm: FormGroup;
+
   constructor(
 
     private userService: UsersService,
 
-    private searchService: SearchsService
+    private searchService: SearchsService,
+
+    private fileUploadService: FileUploadService,
+
+    private fb: FormBuilder,
 
   ) { }
 
   ngOnInit(): void {
 
     this.loadUsers();
-
-    console.log(this.mailUser);
-
 
   }
 
@@ -102,7 +111,7 @@ export class UsersComponent implements OnInit {
 
   search(term: string = '') {
 
-    if ( term.length === 0 ) {
+    if (term.length === 0) {
 
       this.searchActive = false;
 
@@ -136,9 +145,6 @@ export class UsersComponent implements OnInit {
 
   deleteUser(user: User) {
 
-    console.log(user);
-
-
     Swal.fire({
       title: '¿Estas seguro?',
       text: "Una vez borrado no hay vuelta atrás!",
@@ -163,23 +169,85 @@ export class UsersComponent implements OnInit {
 
   }
 
-  changeRole(user: User){
+  changeRole(user: User) {
 
     this.userService.updateRole(user);
 
   }
 
-  editUser(user: User){
+  editUser(user: User) {
 
     this.showModal = true;
     this.userEdit = user;
-    console.log(this.userEdit);
+    this.editForm = this.fb.group({
+      name: [user.name, Validators.required],
+      // email: [user.email, Validators.required],
+      country: [user.country, Validators.required],
+      phone: [user.phone, Validators.required],
+      age: [user.age, Validators.required],
+      // password: [''],
+      desc: [user.desc, Validators.required],
+    })
 
 
   }
 
   closeModal() {
+
     this.showModal = false;
+
+
+  }
+
+  changeImage(file: File) {
+
+    this.imageUpload = file;
+
+    if (!file) return this.imgTemp = null;
+
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+
+      this.imgTemp = reader.result;
+
+    }
+
+  }
+
+  uploadImage() {
+
+    this.fileUploadService.uploadImage(this.imageUpload, 'users', this.userEdit.uid)
+      .then(img => {
+
+        this.userEdit.img = img;
+
+        Swal.fire('Guardado', 'Imagen Actualizada', 'success');
+
+      }).catch(error => {
+
+        Swal.fire('Error', error.error.msg, 'error');
+
+      })
+
+  }
+
+  save() {
+
+    this.userService.editUser(this.editForm.value, this.userEdit.uid).subscribe(resp => {
+
+      this.closeModal();
+
+      this.loadUsers();
+
+    }), (error) => {
+
+      Swal.fire('Error', error.error.msg, 'error');
+
+    }
+
   }
 
 }
