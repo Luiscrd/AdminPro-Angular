@@ -101,13 +101,13 @@ export class UsersService {
 
 
 
-    return this.http.put(`${base_url}/users/${ this.user.uid }`, formData, this.headers).subscribe(resp => {
+    return this.http.put(`${base_url}/users/${this.user.uid}`, formData, this.headers).subscribe(resp => {
 
-    this.user = resp['user'];
+      this.user = resp['user'];
 
-    this.router.navigateByUrl('/dashboard/profile')
+      this.router.navigateByUrl('/dashboard/profile')
 
-  });
+    });
 
   }
 
@@ -121,19 +121,19 @@ export class UsersService {
 
   }
 
-  loginGoogle(jwt: string) {
+  // loginGoogle(jwt: string) {
 
-    return this.http.post(environment.urlBackEnd, { jwt }).pipe(
-      tap((resp: any) => {
-        localStorage.setItem('adminProJWT', resp['jwt']);
-        localStorage.removeItem('email');
-        localStorage.setItem('email', resp['user'].email);
-        // console.log({userService:resp});
+  //   return this.http.post(environment.urlBackEnd, { jwt }).pipe(
+  //     tap((resp: any) => {
+  //       localStorage.setItem('adminProJWT', resp['jwt']);
+  //       localStorage.removeItem('email');
+  //       localStorage.setItem('email', resp['user'].email);
+  //       // console.log({userService:resp});
 
-      })
-    )
+  //     })
+  //   )
 
-  }
+  // }
 
   loafingUsers(to: number = 0) {
 
@@ -142,7 +142,8 @@ export class UsersService {
     return this.http.get(url, this.headers).pipe(
       map(resp => {
         const users = resp['users']
-        .map(user => new User(user.name, user.email, '', user.img, user.google, user.role, user.uid) )
+          .map(user => new User(user.name, user.email, '', user.img, user.google, user.role, 0, '', '', '', user.uid))
+        console.log(users);
 
         return {
           users,
@@ -150,6 +151,14 @@ export class UsersService {
         };
       })
     )
+
+  }
+
+  deleteUser(id: string) {
+
+    const url = `${base_url}/users/${id}`;
+
+    return this.http.delete(url, this.headers);
 
   }
 

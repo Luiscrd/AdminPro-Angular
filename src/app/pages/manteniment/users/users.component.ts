@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from 'src/app/models/user.model';
 import { SearchsService } from '../../../services/searchs.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -48,7 +49,7 @@ export class UsersComponent implements OnInit {
 
       this.totalUsers = resp['total'];
 
-      this.totalPages = this.totalUsers / 5;
+      this.totalPages = Math.ceil(this.totalUsers / 5);
 
       this.users = resp['users'];
 
@@ -104,7 +105,7 @@ export class UsersComponent implements OnInit {
 
     this.searchService.search('users', term, this.to).subscribe(resp => {
 
-      this.users = resp['users'];
+      this.users = resp;
 
       // const total = resp['total'];
 
@@ -118,6 +119,35 @@ export class UsersComponent implements OnInit {
       // }
 
       this.searchActive = true;
+    })
+
+  }
+
+  deleteUser(user: User) {
+
+    console.log(user);
+
+
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Una vez borrado no hay vuelta atrás!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Quiero borrarlo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(user.uid).subscribe(resp => {
+          Swal.fire(
+            'Borrado!',
+            'Has eliminado ese usuario para siempre.',
+            'success'
+          )
+          this.loadUsers();
+        });
+
+      }
     })
 
   }
