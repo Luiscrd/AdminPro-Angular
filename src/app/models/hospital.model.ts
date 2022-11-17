@@ -23,7 +23,7 @@ export class Hospital {
 
     if (!this.img) {
 
-      return `${base_url}/upload/users/no-image`;
+      return `${base_url}/upload/hospitals/no-image`;
 
     }
 
@@ -31,11 +31,11 @@ export class Hospital {
 
       if (this.img.includes('https')) return this.img;
 
-      return `${base_url}/upload/users/${this.img}`;
+      return `${base_url}/upload/hospitals/${this.img}`;
 
     } else {
 
-      return `${base_url}/upload/users/no-image`;
+      return `${base_url}/upload/hospitals/no-image`;
 
     }
   }

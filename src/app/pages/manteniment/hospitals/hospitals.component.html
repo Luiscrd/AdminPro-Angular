@@ -21,6 +21,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
+        <div class="text-right">
+          <button type="button" class="btn btn-secondary" (click)="createHospital()">
+            <i class="fa fa-hospital-o m-r-20"></i>Crear Hospital</button>
+        </div>
         <h4 class="card-title">Hopitales ({{ total }})</h4>
         <h6 class="card-subtitle">Hospitales registrados en mi aplicación</h6>
         <div class="table-responsive">
@@ -35,16 +39,16 @@
             <tbody>
               <tr *ngFor="let hospital of hopitals">
                 <td class="text-center">
-                  <img [src]="hospital.ImageUrl" [alt]="hospital.name" class="hospital-image">
+                  <img [src]="hospital.ImageUrl" [alt]="hospital.name" (click)="updateImage(hospital._id)" class="hospital-image">
                 </td>
                 <td>
                   <input [(ngModel)]="hospital.name" class="form-control" type="text" placeholder="Nombre">
                 </td>
                 <td class="text-nowrap text-center">
-                  <a href="#" data-toggle="tooltip" data-original-title="Editar">
+                  <a (click)="saveChanges(hospital)" data-toggle="tooltip" data-original-title="Editar">
                     <i class="fa fa-save text-inverse m-r-20"></i>
                   </a>
-                  <a href="#" data-toggle="tooltip" data-original-title="Borrar">
+                  <a (click)="deleteHospital(hospital)" data-toggle="tooltip" data-original-title="Borrar">
                     <i class="fa fa-close text-danger"></i>
                   </a>
                 </td>
@@ -52,8 +56,10 @@
             </tbody>
           </table>
         </div>
+        <div *ngIf="total > 5">
         <button class="btn btn-secondary m-2">Anteriores</button>
         <button class="btn btn-secondary m-2">Siguiente</button>
+      </div>
       </div>
     </div>
   </div>

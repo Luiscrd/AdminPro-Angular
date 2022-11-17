@@ -12,7 +12,7 @@ export class FileUploadService {
 
   async uploadImage(
     file: File,
-    tipe: 'users' | 'hopitals' | 'medics',
+    tipe: 'users' | 'hospitals' | 'medics',
     id: string
      ) {
 

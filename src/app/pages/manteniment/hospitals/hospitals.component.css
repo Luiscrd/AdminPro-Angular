@@ -12,4 +12,11 @@ td{
 
 .hospital-image{
   width: 70px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.hospital-image:hover {
+  transition: 0.3s;
+  opacity: 0.5;
 }

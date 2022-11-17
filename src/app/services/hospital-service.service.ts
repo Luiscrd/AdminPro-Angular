@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Hospital } from '../models/hospital.model';
 
 const base_url = environment.base_url;
 
@@ -45,6 +46,28 @@ export class HospitalServiceService {
         }
       })
     )
+  }
+
+  createHospital(name: string) {
+
+    const url = `${base_url}/hospitals`;
+
+    return this.http.post(url, { name }, this.headers);
+  }
+
+  updateHospital(hospital: Hospital) {
+
+    const url = `${base_url}/hospitals/${hospital._id}`;
+
+    return this.http.put(url, { name: hospital.name }, this.headers);
+
+  }
+
+  deleteHospital(hospital: Hospital) {
+
+    const url = `${base_url}/hospitals/${hospital._id}`;
+
+    return this.http.delete(url, this.headers);
 
   }
 }
