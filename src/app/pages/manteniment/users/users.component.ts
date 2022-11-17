@@ -242,6 +242,8 @@ export class UsersComponent implements OnInit {
 
       this.loadUsers();
 
+      this.imgTemp = null;
+
     }), (error) => {
 
       Swal.fire('Error', error.error.msg, 'error');

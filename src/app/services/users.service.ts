@@ -148,7 +148,7 @@ export class UsersService {
     return this.http.get(url, this.headers).pipe(
       map(resp => {
         const users = resp['users']
-          .map(user => new User(user.name, user.email, '', user.img, user.google, user.role, 0, '', '', '', user.uid))
+          .map(user => new User(user.name, user.email, '123456', user.img, user.google, user.role, 0, '', '', '', user.uid))
 
         return {
           users,

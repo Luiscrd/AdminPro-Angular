@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
 import { CardComponent } from './card/card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgChartsModule } from 'ng2-charts';
-import { IncrementComponent } from '../components/increment/increment.component';
 import { ComponentsModule } from '../components/components.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
@@ -20,7 +19,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
 import { HospitalsComponent } from './manteniment/hospitals/hospitals.component';
 import { MedicsComponent } from './manteniment/medics/medics.component';
 import { UsersComponent } from './manteniment/users/users.component';
-
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -47,7 +46,8 @@ import { UsersComponent } from './manteniment/users/users.component';
     FormsModule,
     ComponentsModule,
     NgChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule
   ],
   exports: [
     DashboardComponent,

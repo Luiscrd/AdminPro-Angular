@@ -70,7 +70,7 @@
             </tbody>
           </table>
         </div>
-        <div *ngIf="!searchActive">
+        <div *ngIf="!searchActive && totalPages > 1">
           <button (click)="changePage(-5)" class="btn btn-secondary m-2"
             [disabled]="actualPage === 1">Anteriores</button>
           <span>{{ actualPage }} / {{ totalPages }}</span>
