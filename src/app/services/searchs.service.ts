@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user.model';
+import { Hospital } from '../models/hospital.model';
 
 const base_url = environment.base_url;
 
@@ -31,14 +32,20 @@ export class SearchsService {
     }
   }
 
-  private transUsers(res: any[]): User[] {
+  private transUsers(res: any[]): any[] {
 
     return res.map(user => new User(user.name, user.email, '', user.img, user.google, user.role, 0, '', '', '', user.uid));
 
   }
 
+  private transHospitals(res: any[]): any[] {
+
+    return res.map(hospital => new Hospital(hospital.name, hospital.uid, hospital.img, hospital.user));
+
+  }
+
   search(
-    tipe: 'users' | 'hopitals' | 'medics',
+    tipe: 'users' | 'hospitals' | 'medics',
     term: string,
     to: number = 0
   ) {
@@ -51,6 +58,9 @@ export class SearchsService {
         switch (tipe) {
           case 'users':
             return this.transUsers(resp[tipe]);
+
+            case 'hospitals':
+            return this.transHospitals(resp[tipe]);
 
           default:
             return [];

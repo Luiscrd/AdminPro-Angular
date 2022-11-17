@@ -4,6 +4,7 @@ import { Hospital } from '../../../models/hospital.model';
 import { map } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FileUploadService } from '../../../services/file-upload.service';
+import { SearchsService } from 'src/app/services/searchs.service';
 
 @Component({
   selector: 'app-hospitals',
@@ -14,25 +15,66 @@ export class HospitalsComponent implements OnInit {
 
   public hopitals: Hospital[] = [];
 
+  public hopitalsTemp: Hospital[] = [];
+
   public total: number = 0;
 
   public to: number = 0;
 
   public loading: boolean = true;
 
+  public searchActive: boolean = false;
 
 
   constructor(
 
     private hospitalService: HospitalServiceService,
 
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+
+    private searchService: SearchsService,
 
   ) { }
 
   ngOnInit(): void {
 
     this.getHoispitals();
+
+  }
+
+  search(term: string = '') {
+
+    if (term.length === 0) {
+
+      this.searchActive = false;
+
+      this.hopitals = this.hopitalsTemp;
+
+
+      return;
+
+    }
+
+    this.to = 0;
+
+    this.searchService.search('hospitals', term, this.to).subscribe(resp => {
+
+
+      this.hopitals = resp;
+
+      // const total = resp['total'];
+
+      // if( total === 0 ) {
+      //   this.actualPage = 1;
+      //   this.totalPages = 1;
+      // }
+
+      // if ( total > 5 ) {
+      //   this.totalPages = total / 5;
+      // }
+
+      this.searchActive = true;
+    })
 
   }
 
@@ -45,9 +87,7 @@ export class HospitalsComponent implements OnInit {
       this.hopitals = resp['hospitals'].map(hopital => new Hospital(hopital.name, hopital.uid, hopital.img, hopital.user))
       this.total = resp['total']
       this.loading = false;
-
-      console.log(resp['hospitals']);
-
+      this.hopitalsTemp = this.hopitals;
 
     })
 
