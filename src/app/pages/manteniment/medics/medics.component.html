@@ -2,13 +2,13 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <input type="text" class="form-control" placeholder="Busar usuario">
+        <input type="text" class="form-control" placeholder="Busar medicos" (keyup)="search(txtTerm.value)" #txtTerm>
       </div>
     </div>
   </div>
 </div>
 
-<div class="row animated fadeIn fast">
+<div class="row animated fadeIn fast" *ngIf="loading">
   <div class="col-12">
     <div class="alert alert-primary text-center">
       <h4 class="alert-heading">Cargando</h4>
@@ -17,36 +17,43 @@
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="!loading">
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Usuarios</h4>
-        <h6 class="card-subtitle">Usuariosregistrados en mi aplicación</h6>
+        <div class="text-right">
+          <button type="button" class="btn btn-secondary m-r-20" (click)="createMedic()" [disabled]="true">
+            <i class="fa fa-user-plus m-r-10"></i>Creación rapida</button>
+            <button type="button" class="btn btn-secondary" routerLink="/dashboard/medic/new">
+              <i class="fa fa-address-card-o m-r-10"></i>Crear Medico</button>
+        </div>
+        <h4 class="card-title">Medicos ({{ total }})</h4>
+        <h6 class="card-subtitle">Medicos registrados en mi aplicación</h6>
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Avatar</th>
-                <th>Correo</th>
+                <th class="w100">Foto</th>
                 <th>Nombre</th>
-                <th>Role</th>
-                <th>Auth</th>
-                <th class="text-nowrap">Acciones</th>
+                <th class="text-nowrap w100">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Lunar probe project</td>
-                <td>Lunar probe project</td>
-                <td>Lunar probe project</td>
-                <td>Lunar probe project</td>
-                <td>Lunar probe project</td>
-                <td class="text-nowrap">
-                  <a href="#" data-toggle="tooltip" data-original-title="Editar">
+              <tr *ngFor="let medic of medics">
+                <td>
+                  <img [src]="medic.ImageUrl" [alt]="medic.name" (click)="updateImage(medic._id)" class="medic-image">
+                </td>
+                <td>
+                  <input [(ngModel)]="medic.name" class="form-control" type="text" placeholder="Nombre">
+                </td>
+                <td class="text-nowrap text-center">
+                  <a (click)="saveChanges(medic)" data-toggle="tooltip" data-original-title="Editar">
+                    <i class="fa fa-save text-inverse m-r-10"></i>
+                  </a>
+                  <a [routerLink]="['/dashboard/medic', medic._id ]" data-toggle="tooltip" data-original-title="Editar">
                     <i class="fa fa-pencil text-inverse m-r-10"></i>
                   </a>
-                  <a href="#" data-toggle="tooltip" data-original-title="Borrar">
+                  <a (click)="deleteMedic(medic)" data-toggle="tooltip" data-original-title="Borrar">
                     <i class="fa fa-close text-danger"></i>
                   </a>
                 </td>
@@ -54,8 +61,10 @@
             </tbody>
           </table>
         </div>
-        <button class="btn btn-secondary m-2">Anteriores</button>
-        <button class="btn btn-secondary m-2">Siguiente</button>
+        <div *ngIf="total > 5">
+          <button class="btn btn-secondary m-2">Anteriores</button>
+          <button class="btn btn-secondary m-2">Siguiente</button>
+        </div>
       </div>
     </div>
   </div>

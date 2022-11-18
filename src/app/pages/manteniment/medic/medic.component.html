@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <div *ngIf="medic">
+          <h4 class="card-title">{{ medic.name }}</h4>
+          <h6 class="card-subtitle">Editar Medico</h6>
+          <img *ngIf="!imgTemp" [src]="medic.ImageUrl" class="img-edit-profile" alt="Avatar">
+          <img *ngIf="imgTemp" [src]="imgTemp" class="img-edit-profile" alt="Avatar">
+        </div>
+        <div *ngIf="!medic">
+          <h4 class="card-title">Medico</h4>
+          <h6 class="card-subtitle">Nuevo Medico</h6>
+          <img *ngIf="!imgTemp" src="https://img2.freepng.es/20190517/xkf/kisspng-computer-icons-physician-medicine-health-care-pati-docteur-duffas-piaud-mlanie-consultation-ophtalm-5cde619898e116.0518263815580778486262.jpg" class="img-edit-profile2" alt="Avatar">
+          <img *ngIf="imgTemp" [src]="imgTemp" class="img-edit-profile2" alt="Avatar">
+        </div>
+        <div class="mt-4">
+          <label for="formFile" class="form-label">Cargar imagn nueva</label>
+          <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
+        </div>
+        <button type="button" class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"
+          [disabled]="!imageUpload" (click)="uploadImage()"><i class="fa fa-image m-r-10"></i>Actualizar Imagen</button>
+        <form class="form-horizontal p-t-20" [formGroup]="medicForm" (ngSubmit)="save()">
+          <div class="form-group row">
+            <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre*</label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-user"></i></div>
+                <input type="text" class="form-control" formControlName="name" placeholder="Nombre Medico">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="exampleInputEmail3" class="col-sm-3 control-label">Hospital*</label>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="ti-wheelchair"></i></div>
+                <select class="form-control custom-select" formControlName="hospital">
+                  <option value="" selected>Seleccione Hospital</option>
+                  <option *ngFor="let hospital of hospitals" [value]="hospital._id">{{ hospital.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-info btn-block waves-effect waves-light m-t-10"
+            [disabled]="!medicForm.valid"><i class="fa fa-save m-r-10"></i>Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <div *ngIf="!selectedHospital">
+          <h4 class="card-title">Hospital</h4>
+          <h6 class="card-subtitle">Hospital asignado</h6>
+          <img src="https://clipground.com/images/hospital-png-4.png" class="img-edit-profile" alt="Avatar">
+        </div>
+        <div *ngIf="selectedHospital">
+          <h4 class="card-title">Hospital</h4>
+          <h6 class="card-subtitle">{{ selectedHospital.name}}</h6>
+          <img [src]="selectedHospital.ImageUrl" class="img-edit-profile" alt="Avatar">
+        </div>
+        <!-- <br>
+        <hr> -->
+        <!-- <div class="form-group">
+          <label>Facebook</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-facebook"></i></div>
+            <input type="text" class="form-control" placeholder="Enter facebook">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Twetter</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-twitter"></i></div>
+            <input type="text" class="form-control" placeholder="Enter twtter">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Instagram</label>
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-instagram"></i></div>
+            <input type="text" class="form-control" placeholder="Enter instagram">
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { PublicProfileComponent } from './public-profile/public-profile.componen
 import { MedicsComponent } from './manteniment/medics/medics.component';
 import { HospitalsComponent } from './manteniment/hospitals/hospitals.component';
 import { UsersComponent } from './manteniment/users/users.component';
+import { MedicComponent } from './manteniment/medic/medic.component';
 
 const routes: Routes = [
     {
@@ -29,9 +30,10 @@ const routes: Routes = [
             { path: 'accountsettings', component: AccountSettingsComponent, data: { titulo: 'Setting'} },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'} },
             { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs'} },
-            { path: 'medics', component: MedicsComponent, data: { titulo: 'Medicos'} },
-            { path: 'hospitals', component: HospitalsComponent, data: { titulo: 'Hospitales'} },
-            { path: 'users', component: UsersComponent, data: { titulo: 'Usuarios'} },
+            { path: 'medics', component: MedicsComponent, data: { titulo: 'Mantenimiento de Medicos'} },
+            { path: 'medic/:id', component: MedicComponent, data: { titulo: 'Gestionar Medico'} },
+            { path: 'hospitals', component: HospitalsComponent, data: { titulo: 'Mantenimiento de Hospitales'} },
+            { path: 'users', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios'} },
         ]
     },
 ];

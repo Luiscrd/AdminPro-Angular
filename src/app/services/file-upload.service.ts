@@ -20,6 +20,7 @@ export class FileUploadService {
 
     const url = `${base_url}/upload/${tipe}/${id}`;
 
+
     const formData = new FormData();
 
     formData.append('image', file);
@@ -33,6 +34,7 @@ export class FileUploadService {
     });
 
     const data = await resp.json();
+
 
     if (data.ok) {
 
