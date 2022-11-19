@@ -15,6 +15,7 @@ import { MedicsComponent } from './manteniment/medics/medics.component';
 import { HospitalsComponent } from './manteniment/hospitals/hospitals.component';
 import { UsersComponent } from './manteniment/users/users.component';
 import { MedicComponent } from './manteniment/medic/medic.component';
+import { SearchsComponent } from './searchs/searchs.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,7 @@ const routes: Routes = [
         canActivate: [ AuthGuard ],
         children: [
             { path: 'main', component: DashboardComponent, data: { titulo: 'Main'} },
+            { path: 'search/:termn', component: SearchsComponent, data: { titulo: 'Busqueda'} },
             { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Mi perfil'} },
             { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Editar perfi'} },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress'} },

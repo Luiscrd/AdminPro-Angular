@@ -21,6 +21,7 @@ import { MedicsComponent } from './manteniment/medics/medics.component';
 import { UsersComponent } from './manteniment/users/users.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { MedicComponent } from './manteniment/medic/medic.component';
+import { SearchsComponent } from './searchs/searchs.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { MedicComponent } from './manteniment/medic/medic.component';
     MedicsComponent,
     UsersComponent,
     MedicComponent,
+    SearchsComponent,
   ],
   imports: [
     CommonModule,

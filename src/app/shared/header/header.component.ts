@@ -42,4 +42,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  search(txtTerm: string){
+    console.log(txtTerm);
+
+  }
+
 }
