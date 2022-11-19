@@ -30,7 +30,7 @@ export class Medics {
     public _id?: string,
     public img?: string,
     public user?: _medicUser,
-    public Hospital?: Hospital
+    public hospital?: Hospital
 
   ) { }
 

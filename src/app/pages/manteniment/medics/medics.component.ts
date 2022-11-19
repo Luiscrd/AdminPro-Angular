@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Hospital } from 'src/app/models/hospital.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { HospitalServiceService } from 'src/app/services/hospital-service.service';
 import { SearchsService } from 'src/app/services/searchs.service';
 import Swal from 'sweetalert2';
 import { Medics } from '../../../models/medics.model';
 import { MedicService } from '../../../services/medic.service';
+
 
 @Component({
   selector: 'app-medics',
@@ -16,6 +19,8 @@ export class MedicsComponent implements OnInit {
 
   public medicsTemp: Medics[] = [];
 
+  public hospitals: Hospital[] = [];
+
   public total: number = 0;
 
   public to: number = 0;
@@ -24,9 +29,13 @@ export class MedicsComponent implements OnInit {
 
   public searchActive: boolean = false;
 
+  private inputOptions = {};
+
   constructor(
 
     private medicslService: MedicService,
+
+    private hospitalService: HospitalServiceService,
 
     private fileUploadService: FileUploadService,
 
@@ -36,7 +45,10 @@ export class MedicsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getMedics()
+    this.getMedics();
+
+    this.loadHospitals();
+
   }
 
   search(term: string = '') {
@@ -81,12 +93,30 @@ export class MedicsComponent implements OnInit {
 
     this.medicslService.loadingMedics(this.to).subscribe(resp => {
 
-      this.medics = resp['medics'].map(medic => new Medics(medic.name, medic.uid, medic.img, medic.user))
+      this.medics = resp['medics'].map(medic => new Medics(medic.name, medic.uid, medic.img, medic.user, medic.hospital))
       this.total = resp['total']
       this.loading = false;
       this.medicsTemp = this.medics;
+      console.log(this.medics);
+    })
+
+  }
+
+  loadHospitals() {
+
+    this.hospitalService.loadingHospitals().subscribe(resp => {
+
+      const hospitals = resp['hospitals']
+      .map(hospital => new Hospital(hospital.name, hospital.uid, hospital.img, hospital.user))
+      this.hospitals = hospitals;
+
+      this.hospitals.forEach(h => {
+        this.inputOptions[h._id] = h.name;
+      })
 
     })
+
+
 
   }
 
@@ -138,16 +168,17 @@ export class MedicsComponent implements OnInit {
     })
 
     if (name) {
-      this.medicslService.createMedics(name).subscribe(resp => {
+      const { value: hospital } = await Swal.fire({
+        title: 'Seleccione Hospital',
+        input: 'select',
+        inputOptions: this.inputOptions,
+        inputPlaceholder: 'Hospitales',
+        showCancelButton: true,
+      })
+
+      this.medicslService.createNewMedics(name, hospital).subscribe(resp => {
         const id = resp['medic'].uid;
         this.updateImage(id);
-
-        // this.getHoispitals();
-        // Swal.fire(
-        //   'Guardado!',
-        //   `El Hospital ${name} se ha guardado correctamente`,
-        //   'success'
-        // )
       })
     }
   }
@@ -165,10 +196,7 @@ export class MedicsComponent implements OnInit {
     if (file && id) {
       const reader = new FileReader()
       reader.onload = (e) => {
-      const resp = this.fileUploadService.uploadImage(file, 'medics', id)
-
-      console.log(resp);
-
+        this.fileUploadService.uploadImage(file, 'medics', id)
 
         Swal.fire({
           title: 'Esta es tu Imagen',
@@ -182,6 +210,7 @@ export class MedicsComponent implements OnInit {
       this.getMedics();
     }, 1000);
   }
+
 
 
 }

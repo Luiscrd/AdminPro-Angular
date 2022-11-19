@@ -39,11 +39,10 @@ export class MedicService {
 
     const url = `${base_url}/medics/${id}`;
 
-    return this.http.get(url, this.headers).pipe(
+    return this.http.get<Medics>(url, this.headers).pipe(
       map(resp => {
-        return {
-          medic: resp['medic']
-        }
+        return resp['medic']
+
       })
     )
 
@@ -68,7 +67,17 @@ export class MedicService {
     const url = `${base_url}/medics`;
 
     return this.http.post(url, { name }, this.headers);
+
   }
+
+  createNewMedics(name: string, hospital: string) {
+
+    const url = `${base_url}/medics`;
+
+    return this.http.post(url, { name, hospital }, this.headers);
+
+  }
+
 
   updateMedics(medic: Medics) {
 

@@ -7,19 +7,24 @@
           <h6 class="card-subtitle">Editar Medico</h6>
           <img *ngIf="!imgTemp" [src]="medic.ImageUrl" class="img-edit-profile" alt="Avatar">
           <img *ngIf="imgTemp" [src]="imgTemp" class="img-edit-profile" alt="Avatar">
+          <div class="mt-4">
+            <label for="formFile" class="form-label">Cargar imagn nueva</label>
+            <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
+          </div>
+          <button type="button" class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"
+            [disabled]="!imageUpload" (click)="uploadImage()"><i class="fa fa-image m-r-10"></i>Actualizar Imagen</button>
         </div>
         <div *ngIf="!medic">
           <h4 class="card-title">Medico</h4>
           <h6 class="card-subtitle">Nuevo Medico</h6>
           <img *ngIf="!imgTemp" src="https://img2.freepng.es/20190517/xkf/kisspng-computer-icons-physician-medicine-health-care-pati-docteur-duffas-piaud-mlanie-consultation-ophtalm-5cde619898e116.0518263815580778486262.jpg" class="img-edit-profile2" alt="Avatar">
           <img *ngIf="imgTemp" [src]="imgTemp" class="img-edit-profile2" alt="Avatar">
+          <div class="mt-4">
+            <label for="formFile" class="form-label">Seleccionar imagn</label>
+            <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
+          </div>
         </div>
-        <div class="mt-4">
-          <label for="formFile" class="form-label">Cargar imagn nueva</label>
-          <input class="form-control" type="file" id="formFile" (change)="changeImage($event.target.files[0])">
-        </div>
-        <button type="button" class="btn btn-info btn-block waves-effect waves-light m-t-10 mt-4 mb-2"
-          [disabled]="!imageUpload" (click)="uploadImage()"><i class="fa fa-image m-r-10"></i>Actualizar Imagen</button>
+
         <form class="form-horizontal p-t-20" [formGroup]="medicForm" (ngSubmit)="save()">
           <div class="form-group row">
             <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre*</label>
@@ -43,7 +48,7 @@
             </div>
           </div>
           <button type="submit" class="btn btn-info btn-block waves-effect waves-light m-t-10"
-            [disabled]="!medicForm.valid"><i class="fa fa-save m-r-10"></i>Guardar Cambios</button>
+            [disabled]="!medicForm.valid || noValidForm"><i class="fa fa-save m-r-10"></i>Guardar Cambios</button>
         </form>
       </div>
     </div>
