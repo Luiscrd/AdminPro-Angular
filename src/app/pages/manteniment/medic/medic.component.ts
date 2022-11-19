@@ -65,22 +65,26 @@ export class MedicComponent implements OnInit {
       this.selectedHospital = this.hospitals.find(h => h._id === hospitalId);
 
     })
+
+    console.log(this.imageUpload);
+
   }
 
   loadMedic(id: string) {
 
     if (id === 'new') return;
 
-    this.medicService.medicByID(id).subscribe(medic => {
+      this.medicService.medicByID(id).subscribe(medic => {
 
-      this.medic = new Medics(medic.name, medic.uid, medic.img, medic.user, medic.hospital );
+        if (!medic) return this.router.navigateByUrl('/dashboard/medics');
 
-      this.medicForm.setValue({name: medic.name, hospital: medic.hospital._id});
+        this.medic = new Medics(medic.name, medic.uid, medic.img, medic.user, medic.hospital);
 
-      this.noValidForm = false;
+        this.medicForm.setValue({ name: medic.name, hospital: medic.hospital._id });
 
-    })
+        this.noValidForm = false;
 
+      })
 
   }
 
@@ -89,7 +93,7 @@ export class MedicComponent implements OnInit {
     this.hospitalService.loadingHospitals().subscribe(resp => {
 
       const hospitals = resp['hospitals']
-      .map(hospital => new Hospital(hospital.name, hospital.uid, hospital.img, hospital.user))
+        .map(hospital => new Hospital(hospital.name, hospital.uid, hospital.img, hospital.user))
       this.hospitals = hospitals;
 
     })
@@ -101,13 +105,13 @@ export class MedicComponent implements OnInit {
     this.medicService.createNewMedics(
       this.medicForm.get('name').value,
       this.medicForm.get('hospital').value,
-      ).subscribe(resp => {
-        if (resp['ok']) {
-          this.fileUploadService.uploadImage(this.imageUpload, 'medics', resp['medic'].uid).then(rep => {
-            this.router.navigateByUrl('/dashboard/medics')
-          })
-        }
-      })
+    ).subscribe(resp => {
+      if (resp['ok']) {
+        this.fileUploadService.uploadImage(this.imageUpload, 'medics', resp['medic'].uid).then(rep => {
+          this.router.navigateByUrl('/dashboard/medics');
+        })
+      }
+    })
 
   }
 
@@ -115,13 +119,32 @@ export class MedicComponent implements OnInit {
 
   }
 
-  changeImage(file: File){
+  update() {
+
+    const data = {
+      ...this.medicForm.value,
+      _id: this.medic._id
+    }
+    this.medicService.updateMedics(data).subscribe(resp => {
+      if (resp['ok'] && this.imageUpload) {
+        this.fileUploadService.uploadImage(this.imageUpload, 'medics', resp['medic'].uid).then(rep => {
+
+          this.router.navigateByUrl('/dashboard/medics');
+        })
+      } else {
+
+        this.router.navigateByUrl('/dashboard/medics');
+      }
+    })
+  }
+
+  changeImage(file: File) {
 
     this.imageUpload = file;
 
     this.noValidForm = false;
 
-    if(!file) return this.imgTemp = null;
+    if (!file) return this.imgTemp = null;
 
     const reader = new FileReader();
 

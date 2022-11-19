@@ -205,10 +205,10 @@ export class MedicsComponent implements OnInit {
         })
       }
       reader.readAsDataURL(file);
+      setTimeout(() => {
+        this.getMedics();
+      }, 1000);
     }
-    setTimeout(() => {
-      this.getMedics();
-    }, 1000);
   }
 
 
