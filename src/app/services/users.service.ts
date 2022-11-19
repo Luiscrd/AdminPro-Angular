@@ -68,6 +68,7 @@ export class UsersService {
     return this.http.get(`${base_url}/login/renew`, this.headers).pipe(
       map(resp => {
         localStorage.setItem('adminProJWT', resp['jwt']);
+        localStorage.setItem('menu', JSON.stringify(resp['menu']));
         const {
           email,
           google,
@@ -122,6 +123,7 @@ export class UsersService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('adminProJWT', resp['jwt']);
+        localStorage.setItem('menu', JSON.stringify(resp['menu']));
       })
     )
 

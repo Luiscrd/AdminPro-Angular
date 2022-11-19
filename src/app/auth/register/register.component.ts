@@ -53,7 +53,10 @@ export class RegisterComponent {
     if (!this.registerForm.valid) return;
 
     this.userService.createUser(this.registerForm.value).subscribe({
-      next: (resp) => localStorage.setItem('adminProJWT', resp['jwt']),
+      next: (resp) => {
+        localStorage.setItem('adminProJWT', resp['jwt']);
+        localStorage.setItem('menu', JSON.stringify(resp['menu']));
+      },
       error: (error) => {
         console.warn(error.error.msg)
         Swal.fire({

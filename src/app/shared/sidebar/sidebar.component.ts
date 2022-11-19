@@ -11,7 +11,7 @@ import { User } from '../../models/user.model';
 })
 export class SidebarComponent implements OnInit {
 
-  menuItemes: Menu[];
+  // menuItemes: Menu[];
 
   public imgUrl = '';
 
@@ -21,13 +21,13 @@ export class SidebarComponent implements OnInit {
 
   constructor(
 
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
 
     public userService: UsersService,
 
   ) {
 
-    this.menuItemes = sidebarService.menu;
+    // this.menuItemes = sidebarService.menu;
 
     this.imgUrl = userService.user.ImageUrl;
 
