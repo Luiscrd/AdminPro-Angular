@@ -47,7 +47,7 @@ export class UsersService {
   logout() {
 
     localStorage.removeItem('adminProJWT');
-    console.log(localStorage.getItem('email'));
+    localStorage.removeItem('menu');
 
     this.ngZone.run(() => {
 
