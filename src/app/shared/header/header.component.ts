@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,8 @@ export class HeaderComponent implements OnInit {
   constructor(
 
     public userService: UsersService,
+
+    private router: Router
 
   ) {
 
@@ -42,8 +45,11 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  search(txtTerm: string){
-    console.log(txtTerm);
+  search(term: string){
+
+    if (term.length === 0) return;
+
+    this.router.navigateByUrl(`/dashboard/search/${term}`);
 
   }
 
