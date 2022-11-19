@@ -12,7 +12,7 @@ export class SidebarService {
       icon: 'mdi mdi-gauge',
       submenu: [
         // { title: 'Mi perfil', url: '/dashboard/profile'},
-        // { title: 'Main', url: '/dashboard/main'},
+        { title: 'Main', url: '/dashboard/main'},
         { title: 'ProgressBar', url: '/dashboard/progress'},
         { title: 'Graficas', url: '/dashboard/grafica1'},
         // { title: 'Promesas', url: '/dashboard/promesas'},

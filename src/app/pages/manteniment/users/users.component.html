@@ -58,12 +58,12 @@
                   <div *ngIf="user.google" class="label label-table label-danger">Google</div>
                   <div *ngIf="!user.google" class="label label-table label-info">Email</div>
                 </td>
-                <td class="text-nowrap text-center">
+                <td class="text-nowrap text-center td-actions">
                   <a (click)="editUser(user)" data-toggle="tooltip" data-original-title="Editar">
                     <i class="fa fa-pencil text-inverse"></i>
                   </a>
                   <a (click)="deleteUser(user)" data-toggle="tooltip" data-original-title="Borrar" *ngIf="mailUser != user.email">
-                    <i class="fa fa-close text-danger m-l-20"></i>
+                    <i class="fa fa-close text-danger"></i>
                   </a>
                 </td>
               </tr>
