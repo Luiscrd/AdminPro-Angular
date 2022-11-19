@@ -30,10 +30,14 @@ export class UsersService {
 
   ) { }
 
-  get token() {
+  get token(): string {
 
     return localStorage.getItem('adminProJWT') || '';
 
+  }
+
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.user.role
   }
 
   get headers() {

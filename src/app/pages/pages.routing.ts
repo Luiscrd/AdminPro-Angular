@@ -16,6 +16,7 @@ import { HospitalsComponent } from './manteniment/hospitals/hospitals.component'
 import { UsersComponent } from './manteniment/users/users.component';
 import { MedicComponent } from './manteniment/medic/medic.component';
 import { SearchsComponent } from './searchs/searchs.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
     {
@@ -24,19 +25,20 @@ const routes: Routes = [
         canActivate: [ AuthGuard ],
         children: [
             { path: 'main', component: DashboardComponent, data: { titulo: 'Main'} },
-            { path: 'search/:termn', component: SearchsComponent, data: { titulo: 'Busqueda'} },
-            { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Mi perfil'} },
-            { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Editar perfi'} },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress'} },
             { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Graficas'} },
             { path: 'accountsettings', component: AccountSettingsComponent, data: { titulo: 'Setting'} },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'} },
             { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs'} },
-            { path: 'medics', component: MedicsComponent, data: { titulo: 'Mantenimiento de Medicos'} },
-            { path: 'medic/:id', component: MedicComponent, data: { titulo: 'Gestionar Medico'} },
-            { path: 'hospitals', component: HospitalsComponent, data: { titulo: 'Mantenimiento de Hospitales'} },
-            { path: 'users', component: UsersComponent, data: { titulo: 'Mantenimiento de Usuarios'} },
-        ]
+            { path: 'profile', component: PublicProfileComponent, data: { titulo: 'Mi perfil'} },
+            { path: 'editprofile', component: ProfileComponent, data: { titulo: 'Editar perfi'} },
+            // RUTAS PROTEGIDAS
+            { path: 'medics', component: MedicsComponent, canActivate: [ AdminGuard ], data: { titulo: 'Mantenimiento de Medicos'} },
+            { path: 'medic/:id', component: MedicComponent, canActivate: [ AdminGuard ], data: { titulo: 'Gestionar Medico'} },
+            { path: 'hospitals', component: HospitalsComponent, canActivate: [ AdminGuard ], data: { titulo: 'Mantenimiento de Hospitales'} },
+            { path: 'users', component: UsersComponent, canActivate: [ AdminGuard ], data: { titulo: 'Mantenimiento de Usuarios'} },
+            { path: 'search/:termn', component: SearchsComponent, canActivate: [ AdminGuard ], data: { titulo: 'Busqueda'} },
+          ]
     },
 ];
 
